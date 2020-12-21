@@ -14,7 +14,15 @@
     height: 35px;
     background: #ff7f7f;
  }
-
  @keyframes app-logo-spin {
     from { transform: scaleX(-1); }
  }
+.dispNone {
+    display: none;
+}
+.dispBlock {
+    display: block;
+}
+.red {
+    color : red;
+}
