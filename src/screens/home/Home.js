@@ -18,6 +18,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
     root: {
@@ -133,11 +134,18 @@ class Home extends Component {
                                         <MenuItem value="None"> None </MenuItem> 
                                         {artists.map(artist => (
                                             <MenuItem key={artist.id} value={artist.first_name+" "+artist.last_name}>
-                                                <Checkbox checked={this.state.artists.indexOf(artist.first_name) > -1} />
+                                                <Checkbox checked={this.state.artists.indexOf(artist.first_name+" "+artist.last_name) > -1} />
                                                 <ListItemText primary={artist.first_name+" "+artist.last_name}/>
                                             </MenuItem>
                                         ))}
                                     </Select>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                    id="releaseDateStart"
+                                    label = "Release Date Start"
+                                    type="date"
+                                    InputLabelProps={{shrink : true}}/>
                                 </FormControl>
                             </CardContent>
                         </Card>
