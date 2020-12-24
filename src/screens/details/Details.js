@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import './Details.css';
 import Home from '../home/Home';
 import Youtube from 'react-youtube';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 class Details extends Component {
 
@@ -22,12 +25,14 @@ class Details extends Component {
             return mov.id === this.props.movieId;
         })[0];
         this.setState({ currentState })
-        console.log("temp")
-        console.log(this.state)
     }
 
     backToHomeHandler = () => {
         ReactDOM.render(<Home />, document.getElementById('root'));
+    }
+
+    artistClickHandler = () => {
+
     }
 
     render() {
@@ -78,7 +83,17 @@ class Details extends Component {
                         </div>
                     </div>
                     <div className="rightDetails">
-
+                        <div>
+                            <Typography><span className="bold">Artist:</span></Typography><br/>
+                            <GridList>
+                                {movie.artists.map(artist => (
+                                    <GridListTile key={artist.id}>
+                                        <img src={artist.profile_url} alt={artist.name}/>
+                                        <GridListTileBar title={artist.first_name+" "+artist.last_name}></GridListTileBar>
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                        </div>
                     </div>
                 </div>
             </div>
