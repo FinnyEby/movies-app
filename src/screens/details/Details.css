@@ -87,3 +87,7 @@
       margin-right: 32px;
     }
   }
+
+  .artist {
+    cursor: pointer;
+  }
