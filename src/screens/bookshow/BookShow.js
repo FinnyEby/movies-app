@@ -15,6 +15,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 
 class BookShow extends Component {
 
@@ -24,7 +25,11 @@ class BookShow extends Component {
             location: "",
             language: "",
             date: "",
-            time: ""
+            time: "",
+            tickets: 0,
+            availableTickets: 20,
+            unitprice: 500,
+            total: "0"
         }
     }
 
@@ -48,7 +53,11 @@ class BookShow extends Component {
     }
 
     timeChangehandler = (e) => {
-        this.setState({ time: e.target.value})
+        this.setState({ time: e.target.value })
+    }
+
+    ticketsChangeHandler = (e) => {
+        this.setState({ tickets: e.target.value })
     }
 
     render() {
@@ -68,7 +77,7 @@ class BookShow extends Component {
                                     <MenuItem key={"loc" + loc.id} value={loc.location}>{loc.location}</MenuItem>
                                 ))}
                             </Select>
-                        </FormControl><br/><br/>
+                        </FormControl><br /><br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="language">Choose Language:</InputLabel>
                             <Select id="language" value={this.state.language} onChange={this.languageChangeHandler}>
@@ -76,7 +85,7 @@ class BookShow extends Component {
                                     <MenuItem key={"lang" + lang.id} value={lang.language}>{lang.language}</MenuItem>
                                 ))}
                             </Select>
-                        </FormControl><br/><br/>
+                        </FormControl><br /><br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="date">Choose Show Date:</InputLabel>
                             <Select id="date" value={this.state.date} onChange={this.dateChangeHandler}>
@@ -84,15 +93,26 @@ class BookShow extends Component {
                                     <MenuItem key={"date" + date.id} value={date.showDate}>{date.showDate}</MenuItem>
                                 ))}
                             </Select>
-                        </FormControl><br/><br/>
+                        </FormControl><br /><br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="time">Choose Show Time:</InputLabel>
                             <Select id="time" value={this.state.time} onChange={this.timeChangehandler}>
-                                {showTime.map(time =>(
-                                    <MenuItem key={"time"+time.id} value={time.showTime}>{time.showTime}</MenuItem>
+                                {showTime.map(time => (
+                                    <MenuItem key={"time" + time.id} value={time.showTime}>{time.showTime}</MenuItem>
                                 ))}
                             </Select>
-                        </FormControl><br/><br/>
+                        </FormControl><br /><br />
+                        <FormControl required className="formControl">
+                            <InputLabel htmlFor="tickets">Tickets: ({this.state.availableTickets} available)</InputLabel>
+                            <Input id="tickets" type="text" onChange={this.ticketsChangeHandler} value={this.state.tickets !== 0 ? this.state.tickets : ""} />
+                        </FormControl><br /><br />
+                        <Typography className="formControl">
+                            Unit Price: Rs. 500
+                        </Typography><br />
+                        <Typography className="formControl">
+                            Total Price: Rs. {this.state.unitprice * this.state.tickets}
+                        </Typography><br /><br />
+                        <Button variant="contained" color="primary" onClick={this.bookShowClickHandler}>BOOK SHOW</Button>
                     </Card>
                 </div>
             </div>
