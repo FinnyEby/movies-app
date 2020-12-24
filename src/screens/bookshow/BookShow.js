@@ -16,6 +16,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 class BookShow extends Component {
 
@@ -29,7 +30,12 @@ class BookShow extends Component {
             tickets: 0,
             availableTickets: 20,
             unitprice: 500,
-            total: "0"
+            total: "0",
+            locationrequired: "dispNone",
+            languagerequired: "dispNone",
+            daterequired: "dispNone",
+            timerequired: "dispNone",
+            ticketsrequired: "dispNone"
         }
     }
 
@@ -60,6 +66,14 @@ class BookShow extends Component {
         this.setState({ tickets: e.target.value })
     }
 
+    bookShowClickHandler = () => {
+        this.state.location == "" ? this.setState({locationrequired : "dispBlock"}) : this.setState({locationrequired : "dispNone"})
+        this.state.language == "" ? this.setState({languagerequired : "dispBlock"}) : this.setState({languagerequired : "dispNone"})
+        this.state.date == "" ? this.setState({daterequired : "dispBlock"}) : this.setState({daterequired : "dispNone"})
+        this.state.time == "" ? this.setState({timerequired : "dispBlock"}) : this.setState({timerequired : "dispNone"})
+        this.state.tickets == "" ? this.setState({ticketsrequired : "dispBlock"}) : this.setState({ticketsrequired : "dispNone"})
+    }
+
     render() {
         return (
             <div className="main-container" >
@@ -77,6 +91,7 @@ class BookShow extends Component {
                                     <MenuItem key={"loc" + loc.id} value={loc.location}>{loc.location}</MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.locationrequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br /><br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="language">Choose Language:</InputLabel>
@@ -85,6 +100,7 @@ class BookShow extends Component {
                                     <MenuItem key={"lang" + lang.id} value={lang.language}>{lang.language}</MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.languagerequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br /><br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="date">Choose Show Date:</InputLabel>
@@ -93,6 +109,7 @@ class BookShow extends Component {
                                     <MenuItem key={"date" + date.id} value={date.showDate}>{date.showDate}</MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.daterequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br /><br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="time">Choose Show Time:</InputLabel>
@@ -101,10 +118,12 @@ class BookShow extends Component {
                                     <MenuItem key={"time" + time.id} value={time.showTime}>{time.showTime}</MenuItem>
                                 ))}
                             </Select>
+                            <FormHelperText className={this.state.timerequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br /><br />
                         <FormControl required className="formControl">
                             <InputLabel htmlFor="tickets">Tickets: ({this.state.availableTickets} available)</InputLabel>
                             <Input id="tickets" type="text" onChange={this.ticketsChangeHandler} value={this.state.tickets !== 0 ? this.state.tickets : ""} />
+                            <FormHelperText className={this.state.ticketsrequired}><span className="red">required</span></FormHelperText>
                         </FormControl><br /><br />
                         <Typography className="formControl">
                             Unit Price: Rs. 500
