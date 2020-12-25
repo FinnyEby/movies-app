@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import Header from '../../common/header/Header';
 import './BookShow.css';
 import Details from '../../screens/details/Details';
+import Confirmation from '../confirmation/Confirmation.js'
 import language from '../../common/language';
 import location from '../../common/location';
 import showDate from '../../common/showDate';
 import showTime from '../../common/showTime';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -46,6 +47,12 @@ class BookShow extends Component {
         );
     }
 
+    confirmationPageHandler = () => {
+        if(this.state.location !== "" && this.state.language !== "" && this.state.date !== "" && this.state.time !== "" && this.state.tickets !== 0) {
+            ReactDOM.render(<Confirmation movieId={this.props.movieId}  bookingSummary={this.state} location={this.state.location} language={this.state.language} date={this.state.date} time={this.state.time} tickets={this.state.tickets} unitPrice={this.state.unitprice}/>, document.getElementById('root'))
+        }
+    }
+
     locationChangeHandler = (e) => {
         this.setState({ location: e.target.value })
     }
@@ -72,6 +79,7 @@ class BookShow extends Component {
         this.state.date == "" ? this.setState({daterequired : "dispBlock"}) : this.setState({daterequired : "dispNone"})
         this.state.time == "" ? this.setState({timerequired : "dispBlock"}) : this.setState({timerequired : "dispNone"})
         this.state.tickets == "" ? this.setState({ticketsrequired : "dispBlock"}) : this.setState({ticketsrequired : "dispNone"})
+        this.confirmationPageHandler()
     }
 
     render() {
